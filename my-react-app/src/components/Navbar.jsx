@@ -1,63 +1,95 @@
 import React, { useState } from 'react';
-import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch } from 'react-icons/ai';
-
+import { AiOutlineUser, AiOutlineHeart, AiOutlineShopping, AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
+import { FiSearch } from 'react-icons/fi';
 
 const Navbar = () => {
-  const [nav, setNav] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
 
-  const handleNav = () => {
-    setNav(!nav);
-  };
+  const toggleNav = () => setNavOpen(!navOpen);
 
   const navItems = [
-    // { id: 0, text: 'Home' },
-    { id: 1, text: 'Hot Items' },
-    { id: 2, text: 'Avainlable Items ' },
-    // { id: 4, text: 'Collection' },
-    { id: 5, text: 'Search' },
+    'Hot Items',
+    'Available Items',
+    'Collection',
+    'Our Store',
+    'Search',
   ];
 
   return (
-    <div className='bg-white flex justify-between items-center h-24 w-full px-4 text-black   font-poppins'>
-      {/* Logo */}
-      <h1 className='text-3xl font-bold text-[#00df9a]'>KINGSHOP.</h1>
+    <div className="w-full font-poppins text-sm">
 
-      {/* Desktop Navigation */}
-      <ul className='hidden md:flex'>
-        {navItems.map(item => (
-          <li
-            key={item.id}
-            className='p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black'
-          >
-            {item.text}
-          </li>
-        ))}
-      </ul>
+    {/* Top Bar */}
+<div className="bg-black overflow-hidden whitespace-nowrap">
+  <div className="inline-block text-white text-xs tracking-wide px-6 py-2 animate-scroll w-max">
+    🎁 FREE SHIPPING 25K ON YOUR FIRST PURCHASE • 🎁 FREE SHIPPING 25K ON YOUR FIRST PURCHASE • 🎁 FREE SHIPPING 25K ON YOUR FIRST PURCHASE
+  </div>
+</div>
 
-      {/* Mobile Navigation Icon */}
-      <div onClick={handleNav} className='block md:hidden'>
-        {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
+
+      {/* Logo Section */}
+      <div className="flex justify-between items-center px-6 py-4 border-b">
+        <div className="text-xl font-bold tracking-widest">KINGSHOP.</div>
+       
+
+        {/* Desktop Icons */}
+        <div className="hidden md:flex items-center gap-4 text-lg">
+          <AiOutlineUser className="cursor-pointer" />
+          <AiOutlineHeart className="cursor-pointer" />
+          <div className="relative cursor-pointer">
+            <AiOutlineShopping />
+            <span className="absolute -top-2 -right-2 text-xs bg-black text-white rounded-full w-4 h-4 flex items-center justify-center">
+              0
+            </span>
+          </div>
+        </div>
+
+        {/* Mobile Menu Icon */}
+        <div className="md:hidden z-50" onClick={toggleNav}>
+          {navOpen ? <AiOutlineClose size={24} /> : <AiOutlineMenu size={24} />}
+        </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
-     <ul
-  className={
-    nav
-      ? 'fixed md:hidden left-0 top-0 w-[60%] h-full border-r border-r-gray-900 bg-white ease-in-out duration-500 font-poppins z-50'
-      : 'ease-in-out w-[60%] duration-500 fixed top-0 bottom-0 left-[-100%] font-poppins z-50'
-  }
-     >
+      {/* Desktop Nav */}
+      <div className="hidden md:flex justify-between items-center px-6 py-4">
+        {/* Nav Items */}
+        <ul className="flex gap-6 uppercase tracking-widest font-medium">
+          {navItems.map((item, index) => (
+            <li key={index} className="cursor-pointer hover:underline flex items-center gap-1">
+              {item === 'Search' && <FiSearch size={14} />}
+              {item}
+              {item === 'Search' && <span className="border-b border-black w-16 block"></span>}
+            </li>
+          ))}
+        </ul>
+      </div>
 
-        <h1 className='text-3xl font-bold text-[#00df9a] m-4'>KINGSHOP</h1>
-        {navItems.map(item => (
-          <li
-            key={item.id}
-            className='p-4 border-b rounded-xl hover:bg-[#00df9a] duration-300 hover:text-black cursor-pointer border-gray-600'
-          >
-            {item.text}
-          </li>
-        ))}
-      </ul>
+      {/* Mobile Sidebar Menu */}
+      <div
+        className={`md:hidden fixed top-0 left-0 w-3/4 h-full bg-white z-40 p-6 transform duration-300 ${
+          navOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <h2 className="text-2xl font-bold text-[#00df9a] mb-6">KINGSHOP.</h2>
+        <ul className="space-y-4 uppercase tracking-widest">
+          {navItems.map((item, index) => (
+            <li key={index} className="border-b border-gray-300 pb-2 flex items-center gap-2 cursor-pointer">
+              {item === 'Search' && <FiSearch size={16} />}
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-8 flex items-center gap-6 text-xl">
+          <AiOutlineUser className="cursor-pointer" />
+          <AiOutlineHeart className="cursor-pointer" />
+          <div className="relative cursor-pointer">
+            <AiOutlineShopping />
+            <span className="absolute -top-2 -right-2 text-xs bg-black text-white rounded-full w-4 h-4 flex items-center justify-center">
+              0
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

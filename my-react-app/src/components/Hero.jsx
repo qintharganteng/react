@@ -33,6 +33,14 @@ const products = [
   },
 ];
 
+// Tambahkan gambar lain dari folder assets
+import gallery1 from '../assets/all1.jpg';
+import gallery2 from '../assets/all2.jpg';
+import gallery3 from '../assets/all3.jpg';
+import gallery4 from '../assets/all4.jpg';
+
+const galleryImages = [gallery1, gallery2, gallery3, gallery4];
+
 export default function Hero() {
   return (
     <>
@@ -118,8 +126,8 @@ export function CardSection() {
               alt={item.name}
               className="w-50 h-50 object-contain mb-4"
             />
-            <h3 className="text-lg font-semibold text-black">{item.name}</h3>
-            <p className="text-sm text-gray-600 mb-6">{item.desc}</p>
+            <h3 className="text-lg font-poppins text-black">{item.name}</h3>
+            <p className="text-sm text-gray-600 font-poppins mb-6">{item.desc}</p>
 
             {/* Indikator Dot */}
          <div className="flex gap-3 mt-2">
@@ -141,6 +149,16 @@ export function CardSection() {
           </div>
         </div>
       </div>
+
+       {/* Grid galeri di kanan */}
+        <div className="grid grid-cols-2 gap-4 max-w-lg">
+          {galleryImages.map((img, i) => (
+            <div key={i} className="rounded-lg overflow-hidden">
+              <img src={img} alt={`Gallery ${i + 1}`} className="object-cover w-full h-full" />
+            </div>
+          ))}
+        </div>
+
     </section>
   );
 }
