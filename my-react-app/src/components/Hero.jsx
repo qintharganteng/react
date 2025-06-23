@@ -107,60 +107,63 @@ export function CardSection() {
 
   const item = products[currentIndex];
 
-  return (
-    <section className="bg-white py-6 px-6">
-      {/* Judul */}
-     <div className="mb-10 text-left pl-32">
-  <h2 className="text-3xl font-poppins text-gray-800 uppercase tracking-wide">
+ return (
+  <section className="bg-white py-6 px-6">
+    {/* Judul */}
+    <div className="mb-10 flex justify-center items-center gap-4 text-center">
+  <h2 className="text-3xl font-poppins text-gray-800 uppercase tracking-wide font-bold">
     Our Colors
   </h2>
-    <span className="mt-2 block w-24 h-[4px] bg-black"></span>
+  <span className="mt-2 block w-24 h-[4px] bg-black"></span>
 </div>
 
-      {/* Card */}
-      <div className="ml-4">
-        <div className="bg-black rounded-6xl shadow-lg w-[25rem] h-[32rem] p-6 flex flex-col justify-between items-center relative">
-          <div className="flex flex-col justify-center items-center">
-            <img
-              src={item.image}
-              alt={item.name}
-              className="w-50 h-50 object-contain mb-4"
-            />
-            <h3 className="text-lg font-poppins text-black">{item.name}</h3>
-            <p className="text-sm text-gray-600 font-poppins mb-6">{item.desc}</p>
 
-            {/* Indikator Dot */}
-         <div className="flex gap-3 mt-2">
-  {products.map((_, index) => {
-    const colors = ['bg-amber-700', 'bg-green-700', 'bg-amber-900', 'bg-blue-900'];
-    const color = colors[index % colors.length];
-
-    return (
-      <button
-        key={index}
-        onClick={() => goToSlide(index)}
-        className={`w-4 h-4 rounded-full transition-all duration-300 ${
-          index === currentIndex ? color : `${color} opacity-50 hover:opacity-80`
-        }`}
+    {/* Kontainer Flex untuk Card dan Gallery */}
+  <div className="flex flex-col lg:flex-row items-start justify-center gap-48 px-10">
+    
+  {/* Card */}
+  <div className="bg-black rounded-6xl shadow-lg w-[25rem] h-[32rem] p-6 flex flex-col justify-between items-center relative">
+    <div className="flex flex-col justify-center items-center">
+      <img
+        src={item.image}
+        alt={item.name}
+        className="w-50 h-50 object-contain mb-4"
       />
-    );
-  })}
-</div>
-          </div>
-        </div>
+      <h3 className="text-lg font-poppins text-black">{item.name}</h3>
+      <p className="text-sm text-black font-poppins mb-6">{item.desc}</p>
+
+      {/* Indikator Dot */}
+      <div className="flex gap-3 mt-2">
+        {products.map((_, index) => {
+          const colors = ['bg-amber-700', 'bg-green-700', 'bg-amber-900', 'bg-blue-900'];
+          const color = colors[index % colors.length];
+
+          return (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`w-4 h-4 rounded-full transition-all duration-300 ${
+                index === currentIndex ? color : `${color} opacity-50 hover:opacity-80`
+              }`}
+            />
+          );
+        })}
       </div>
+    </div>
+  </div>
 
-       {/* Grid galeri di kanan */}
-        <div className="grid grid-cols-2 gap-4 max-w-lg">
-          {galleryImages.map((img, i) => (
-            <div key={i} className="rounded-lg overflow-hidden">
-              <img src={img} alt={`Gallery ${i + 1}`} className="object-cover w-full h-full" />
-            </div>
-          ))}
-        </div>
-
-    </section>
+  {/* Grid Galeri */}
+  <div className="grid grid-cols-2 gap-4 max-w-sm pl-6">
+    {galleryImages.map((img, i) => (
+      <div key={i} className="rounded-lg overflow-hidden">
+        <img src={img} alt={`Gallery ${i + 1}`} className="object-cover w-full h-full" />
+      </div>
+    ))}
+  </div>
+</div>
+  </section>
   );
+
 }
 
 
